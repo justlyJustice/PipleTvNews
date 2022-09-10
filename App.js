@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Alert, BackHandler } from "react-native";
 import WebView from "react-native-webview";
+import LoadingIndicator from "./app/components/LoadingIndicator";
 
 import Screen from "./app/components/Screen";
 import TabBar from "./app/components/TabBar";
@@ -13,14 +14,18 @@ export default function App() {
   };
 
   const handleQuitApp = () => {
-    Alert.alert("Are you sure you want to exit the app?", undefined, [
-      {
-        text: "Cancel",
-        onPress: () => null,
-        style: "cancel",
-      },
-      { text: "YES", onPress: () => BackHandler.exitApp() },
-    ]);
+    Alert.alert(
+      "Are you sure you want to exit the app?",
+      "Close the application",
+      [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "destructive",
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() },
+      ]
+    );
 
     return true;
   };
@@ -29,13 +34,16 @@ export default function App() {
     if (webviewRef.current) webviewRef.current.goForward();
   }
 
-  BackHandler.addEventListener("hardwareBackPress", handleBackPress);
+  BackHandler.addEventListener(
+    "hardwareBackPress",
+    webviewRef.current ? () => {} : handleQuitApp
+  );
 
   return (
     <Screen>
       <WebView
         source={{ uri: "https://www.pipletvnews.com" }}
-        renderLoading={LoadingIndicatorView}
+        renderLoading={LoadingIndicator}
         startInLoadingState={true}
         ref={webviewRef}
       />

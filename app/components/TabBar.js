@@ -1,20 +1,20 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 function TabBar({ handleBackPress, handleForwardPress, handleQuitApp }) {
   return (
     <View style={styles.tabBarContainer}>
       <TouchableOpacity onPress={handleQuitApp}>
-        <MaterialCommunityIcons name="close" size={20} />
+        <MaterialIcons name="close" style={styles.icon} />
       </TouchableOpacity>
 
       <TouchableOpacity onPress={handleBackPress}>
-        <MaterialCommunityIcons name="less-than" size={20} />
+        <MaterialIcons name="arrow-back" style={styles.icon} />
       </TouchableOpacity>
 
       <TouchableOpacity onPress={handleForwardPress}>
-        <MaterialCommunityIcons name="greater-than" size={20} />
+        <MaterialIcons name="arrow-forward" style={styles.icon} />
       </TouchableOpacity>
     </View>
   );
@@ -26,8 +26,13 @@ const styles = StyleSheet.create({
     height: 56,
     alignItems: "center",
     flexDirection: "row",
-    paddingHorizontal: 16,
+    paddingHorizontal: 43,
     justifyContent: "space-between",
+  },
+  icon: {
+    color: "#3f3f3f",
+    fontSize: 23,
+    fontWeight: "800",
   },
 });
 
